@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { supabase } from "../config/supaBaseClient";
 
 export const NewLog = () => {
 	const [newCofee, setNewCofee] = useState({
@@ -7,15 +8,26 @@ export const NewLog = () => {
 		roast_date: "",
 		notes: "",
 	});
+	const insertCoffees = async () => {
+		const { error, data } = await supabase
+			.from("coffees")
+			.insert(newCofee)
+			.select();
+		if (error) {
+			console.log("Error: ", error);
+			return;
+		}
+		console.log("Inserted: ", data);
+	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		insertCoffees();
 	};
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setNewCofee((prev) => ({ ...prev, [name]: value }));
-		console.log(name, value);
 	};
 
 	return (
@@ -53,7 +65,16 @@ export const NewLog = () => {
 				onChange={(e) => {
 					handleChange(e);
 				}}
+				required
 			/>
+
+			<textarea
+				name="notes"
+				value={newCofee.notes}
+				onChange={(e) => {
+					handleChange(e);
+				}}
+			></textarea>
 
 			<button>Add</button>
 		</form>
