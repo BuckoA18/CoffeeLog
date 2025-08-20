@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { EditLog } from "./EditLog";
 
-export const CoffeeCard = ({ coffeeInfo, edit, remove }) => {
+export const CoffeeCard = ({ coffeeInfo, remove }) => {
 	const { name, roast_level, roast_date, notes, id } = coffeeInfo;
 	return (
 		<ul>
@@ -18,6 +18,9 @@ export const CoffeeCard = ({ coffeeInfo, edit, remove }) => {
 				>
 					Delete
 				</button>
+				<Link to={`coffee/${id}/recipes`}>
+					<button>Recipes</button>
+				</Link>
 			</li>
 		</ul>
 	);
