@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { supabase } from "../config/supaBaseClient";
-import { useParams } from "react-router-dom";
+import { supabase } from "../../config/supaBaseClient";
+import { useParams, Link } from "react-router-dom";
+import { RecipeCard } from "./RecipeCard";
 
 export const Recipes = () => {
 	const [recipes, setRecipes] = useState([]);
@@ -11,21 +12,26 @@ export const Recipes = () => {
 			const { error, data } = await supabase
 				.from("recipes")
 				.select()
-				.eq("coffee_id", id);
-
+				.eq("coffee_id", id)
+				.order("id", { ascending: false });
 			if (error) {
 				console.log("Fetch error: ", error);
 			}
 			setRecipes(data);
+			console.log("Recipes: ", recipes);
 		};
 		fetchRecipes();
 	}, []);
 
-	console.log(recipes);
 	return (
 		<div>
 			<h1>Coffee id: {id}</h1>
-			<button>Create new recipe</button>
+			{recipes.map((recipe) => (
+				<RecipeCard key={recipe.id} recipeInfo={recipe} />
+			))}
+			<Link to="newrecipe">
+				<button>Create new recipe</button>
+			</Link>
 		</div>
 	);
 };

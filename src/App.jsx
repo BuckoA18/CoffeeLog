@@ -1,10 +1,12 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { NewLog } from "./NewLog";
+import { NewLog } from "./coffee-components/NewLog";
 import { Home } from "./Home";
-import { EditLog } from "./EditLog";
-import { Recipes } from "./Recipes";
+import { EditLog } from "./coffee-components/EditLog";
+import { Recipes } from "./recipe-components/Recipes";
+import { NewRecipe } from "./recipe-components/NewRecipe";
+import { EditRecipe } from "./recipe-components/EditRecipe";
 
 const App = () => {
 	return (
@@ -17,8 +19,13 @@ const App = () => {
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/newlog" element={<NewLog />} />
-				<Route path="/editlog/:id" element={<EditLog />} />
+				<Route path="/:id/edit" element={<EditLog />} />
 				<Route path="coffee/:id/recipes" element={<Recipes />} />
+				<Route
+					path="coffee/:id/recipes/:recipeId/edit"
+					element={<EditRecipe />}
+				/>
+				<Route path="coffee/:id/recipes/newrecipe" element={<NewRecipe />} />
 			</Routes>
 		</BrowserRouter>
 	);

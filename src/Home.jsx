@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CoffeeCard } from "./CoffeeCard";
+import { CoffeeCard } from "./coffee-components/CoffeeCard";
 import { supabase } from "../config/supaBaseClient";
 
 export const Home = () => {
@@ -9,7 +9,10 @@ export const Home = () => {
 
 	useEffect(() => {
 		const fetchCoffes = async () => {
-			const { error, data } = await supabase.from("coffees").select();
+			const { error, data } = await supabase
+				.from("coffees")
+				.select()
+				.order("id", { ascending: false }); // new log will aways be first
 			if (error) {
 				setFetchError(error);
 				console.log(error);
@@ -27,8 +30,19 @@ export const Home = () => {
 			.finally(() => setIsLoading(false));
 	}, []);
 
-	const editCoffee = async (id) => {
-		const { error, data } = supabase.from("coffees").update();
+	// const editCoffee = async (id) => {
+	// 	const { error, data } = supabase.from("coffees").update();
+	// };
+
+	const removeRecipes = async (id) => {
+		const { error } = await supabase
+			.from("recipes")
+			.delete()
+			.select("*")
+			.eq("coffee_id", id);
+		if (error) {
+			console.log(error);
+		}
 	};
 
 	const removeCoffee = async (id) => {
@@ -49,8 +63,8 @@ export const Home = () => {
 	return coffees.map((coffee) => (
 		<CoffeeCard
 			coffeeInfo={coffee}
-			edit={editCoffee}
-			remove={removeCoffee}
+			removeCoffee={removeCoffee}
+			removeRecipes={removeRecipes}
 			key={coffee.id}
 		/>
 	));

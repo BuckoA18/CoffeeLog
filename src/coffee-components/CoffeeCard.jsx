@@ -2,18 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { EditLog } from "./EditLog";
 
-export const CoffeeCard = ({ coffeeInfo, remove }) => {
+export const CoffeeCard = ({ coffeeInfo, removeCoffee, removeRecipes }) => {
 	const { name, roast_level, roast_date, notes, id } = coffeeInfo;
 	return (
 		<ul>
 			<li>
 				{name} || {roast_level} || {roast_date} || {notes}
-				<Link to={`editlog/${id}`}>
+				<Link to={`${id}/edit`}>
 					<button>Edit</button>
 				</Link>
 				<button
 					onClick={() => {
-						remove(id);
+						removeRecipes(id);
+						removeCoffee(id);
 					}}
 				>
 					Delete

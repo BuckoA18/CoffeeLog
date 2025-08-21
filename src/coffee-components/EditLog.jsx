@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { data, useParams } from "react-router-dom";
-import { supabase } from "../config/supaBaseClient";
+import { useParams } from "react-router-dom";
+import { supabase } from "../../config/supaBaseClient";
 
 export const EditLog = () => {
 	const { id } = useParams();
-	const [coffee, setCoffee] = useState("");
+	const [coffee, setCoffee] = useState({});
+	sdds;
 
 	useEffect(() => {
 		const fetchCoffee = async () => {
