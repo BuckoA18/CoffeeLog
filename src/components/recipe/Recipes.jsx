@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { supabase } from "../../config/supaBaseClient";
+import { supabase } from "../../../config/supaBaseClient";
 import { useParams, Link } from "react-router-dom";
 import { RecipeCard } from "./RecipeCard";
 

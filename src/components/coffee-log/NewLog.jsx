@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { supabase } from "../../config/supaBaseClient";
+import { supabase } from "../../../config/supaBaseClient";
 
 export const NewLog = () => {
 	const [newCofee, setNewCofee] = useState({

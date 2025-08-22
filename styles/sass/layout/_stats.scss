@@ -1,0 +1,12 @@
+@use "../utility/variables" as vars;
+@use "../utility/mixins" as *;
+
+.stats {
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+
+	.stats__card {
+		@include stat-card;
+	}
+}

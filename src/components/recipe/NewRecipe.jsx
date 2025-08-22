@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { supabase } from "../../config/supaBaseClient";
+import { supabase } from "../../../config/supaBaseClient";
 
 export const NewRecipe = () => {
 	const { id } = useParams();

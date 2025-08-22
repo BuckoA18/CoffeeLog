@@ -1,0 +1,12 @@
+@use "../utility/variables" as vars;
+@use "../utility/mixins" as *;
+.actions {
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	flex-wrap: wrap;
+
+	.action__card {
+		@include action-card;
+	}
+}

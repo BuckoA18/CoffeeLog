@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { supabase } from "../../config/supaBaseClient";
+import { supabase } from "../../../config/supaBaseClient";
 
 export const EditRecipe = () => {
 	const { recipeId } = useParams();

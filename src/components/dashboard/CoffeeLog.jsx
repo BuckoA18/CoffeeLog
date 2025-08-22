@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { CoffeeCard } from "./coffee-components/CoffeeCard";
-import { supabase } from "../config/supaBaseClient";
+import { CoffeeCard } from "../coffee-log/CoffeeCard";
+import { supabase } from "../../../config/supaBaseClient";
 
-export const Home = () => {
+export const CoffeeLog = () => {
 	const [coffees, setCoffees] = useState(null);
 	const [fetchError, setFetchError] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
@@ -35,37 +35,45 @@ export const Home = () => {
 	// };
 
 	const removeRecipes = async (id) => {
-		const { error } = await supabase
+		const { error, data } = await supabase
 			.from("recipes")
 			.delete()
-			.select("*")
+			.select()
 			.eq("coffee_id", id);
 		if (error) {
-			console.log(error);
+			console.log("Error on remove recipes: ", error);
 		}
+		console.log("Recipes removed: ", data);
 	};
 
 	const removeCoffee = async (id) => {
-		const { error } = await supabase.from("coffees").delete().eq("id", id);
+		const { error, data } = await supabase
+			.from("coffees")
+			.delete()
+			.eq("id", id)
+			.select("*");
 		if (error) {
-			console.log("Error on remove: ", error);
-			return;
+			console.log("Error on remove coffee: ", error);
 		}
 		setCoffees((prevCoffees) =>
 			prevCoffees.filter((coffee) => coffee.id !== id)
 		);
-		console.log("removed id: ", id);
+		console.log("Coffee removed ", data);
 	};
 
 	if (isLoading) return <h1>Loading...</h1>;
-	if (!coffees) return <h1>First you must add a new coffee</h1>;
 
-	return coffees.map((coffee) => (
-		<CoffeeCard
-			coffeeInfo={coffee}
-			removeCoffee={removeCoffee}
-			removeRecipes={removeRecipes}
-			key={coffee.id}
-		/>
-	));
+	return (
+		<div className="coffeelog">
+			<h1>Recent Logs</h1>
+			{coffees.map((coffee) => (
+				<CoffeeCard
+					coffeeInfo={coffee}
+					removeCoffee={removeCoffee}
+					removeRecipes={removeRecipes}
+					key={coffee.id}
+				/>
+			))}
+		</div>
+	);
 };

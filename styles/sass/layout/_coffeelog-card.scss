@@ -1,0 +1,6 @@
+@use "../utility/variables" as vars;
+
+.coffeelog__card {
+	background-color: vars.$bg-primary;
+	display: flex;
+}

@@ -1,0 +1,14 @@
+@use "../utility/variables" as vars;
+
+.coffeelog {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	background-color: vars.$bg-secondary;
+	padding: 1rem;
+
+	& > h1 {
+		text-align: left;
+		font-size: 1.5rem;
+	}
+}

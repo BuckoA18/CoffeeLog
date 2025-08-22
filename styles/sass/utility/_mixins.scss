@@ -1,0 +1,16 @@
+@use "../utility/variables" as vars;
+
+@mixin stat-card {
+	width: 30vw;
+	height: 7rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex-grow: 1;
+	background-color: vars.$bg-secondary;
+}
+
+@mixin action-card {
+	@include stat-card;
+}

@@ -1,0 +1,23 @@
+@use "../utility/variables" as vars;
+@use "../utility/mixins";
+
+.header {
+	width: 100%;
+	background-color: vars.$bg-secondary;
+
+	div {
+		margin: 0 auto;
+		max-width: 1200px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 2rem;
+		height: 7vh;
+
+		h1 {
+			font-size: 2rem;
+			font-weight: 700;
+			color: vars.$text-primary;
+		}
+	}
+}
