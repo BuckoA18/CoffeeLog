@@ -5,7 +5,7 @@ export const ActionCard = ({ text, link }) => {
 	const navigate = useNavigate();
 	return (
 		<div
-			className="action__card"
+			className="flex justify-center items-center mt-10 w-full bg-white rounded-xl h-25 hover:cursor-pointer"
 			onClick={() => {
 				navigate(link);
 			}}

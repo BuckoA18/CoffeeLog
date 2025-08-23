@@ -29,8 +29,9 @@ export const CoffeeLog = ({ coffees, setCoffees, recipes }) => {
 		setCoffees((prev) => prev.filter((coffee) => coffee.id !== id));
 	};
 	return (
-		<div className="coffeelog">
-			<h1>Recent Logs</h1>
+		<div className="mt-10 p-8 w-full bg-white rounded-xl">
+			<h1 className="text-2xl font-bold">Recent Logs:</h1>
+			<p className="mb-3">Your recently logged coffees</p>
 			{coffees.map((coffee) => (
 				<CoffeeCard
 					coffeeInfo={coffee}
