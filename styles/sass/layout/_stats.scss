@@ -8,5 +8,11 @@
 
 	.stats__card {
 		@include stat-card;
+
+		&__title {
+		}
+
+		&__value {
+		}
 	}
 }

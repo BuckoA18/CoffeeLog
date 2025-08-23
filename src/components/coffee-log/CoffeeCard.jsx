@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { EditLog } from "./EditLog";
 
-export const CoffeeCard = ({ coffeeInfo, removeCoffee, removeRecipes }) => {
+export const CoffeeCard = ({ coffeeInfo, onRemove }) => {
 	const { name, roast_level, roast_date, notes, id } = coffeeInfo;
 	return (
 		<div className="coffeelog__card">
@@ -16,8 +16,7 @@ export const CoffeeCard = ({ coffeeInfo, removeCoffee, removeRecipes }) => {
 			</Link>
 			<button
 				onClick={() => {
-					removeRecipes(id);
-					removeCoffee(id);
+					onRemove(id);
 				}}
 			>
 				Delete

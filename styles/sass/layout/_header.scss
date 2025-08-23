@@ -5,7 +5,7 @@
 	width: 100%;
 	background-color: vars.$bg-secondary;
 
-	div {
+	&__container {
 		margin: 0 auto;
 		max-width: 1200px;
 		display: flex;
@@ -13,11 +13,14 @@
 		align-items: center;
 		padding: 2rem;
 		height: 7vh;
+	}
 
-		h1 {
-			font-size: 2rem;
-			font-weight: 700;
-			color: vars.$text-primary;
-		}
+	&__title {
+		font-size: 2rem;
+		font-weight: 700;
+		color: vars.$text-primary;
+	}
+
+	&__button {
 	}
 }

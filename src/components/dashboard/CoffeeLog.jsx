@@ -2,76 +2,40 @@ import React, { useEffect, useState } from "react";
 import { CoffeeCard } from "../coffee-log/CoffeeCard";
 import { supabase } from "../../../config/supaBaseClient";
 
-export const CoffeeLog = () => {
-	const [coffees, setCoffees] = useState(null);
-	const [fetchError, setFetchError] = useState(null);
-	const [isLoading, setIsLoading] = useState(true);
+export const CoffeeLog = ({ coffees, setCoffees, recipes }) => {
+	if (!coffees) return <h1>Loading...</h1>;
 
-	useEffect(() => {
-		const fetchCoffes = async () => {
-			const { error, data } = await supabase
-				.from("coffees")
-				.select()
-				.order("id", { ascending: false }); // new log will aways be first
-			if (error) {
-				setFetchError(error);
-				console.log(error);
-			}
-			if (data.length > 0) {
-				setCoffees(data);
-				console.log("data: ", data);
-			}
-		};
-		fetchCoffes()
-			.catch((err) => {
-				setFetchError(err);
-				console.log(fetchError);
-			})
-			.finally(() => setIsLoading(false));
-	}, []);
-
-	// const editCoffee = async (id) => {
-	// 	const { error, data } = supabase.from("coffees").update();
-	// };
-
-	const removeRecipes = async (id) => {
-		const { error, data } = await supabase
+	const handleRemove = async (id) => {
+		const { data: reccipeData, error: recipeError } = await supabase
 			.from("recipes")
 			.delete()
-			.select()
-			.eq("coffee_id", id);
-		if (error) {
-			console.log("Error on remove recipes: ", error);
+			.eq("coffee_id", id)
+			.select();
+		if (recipeError) {
+			console.log("Delete error on recipe: ", error);
+			return;
 		}
-		console.log("Recipes removed: ", data);
-	};
+		console.log("Recipes removed: ", reccipeData);
 
-	const removeCoffee = async (id) => {
-		const { error, data } = await supabase
+		const { data: coffeeData, error: coffeeError } = await supabase
 			.from("coffees")
 			.delete()
 			.eq("id", id)
-			.select("*");
-		if (error) {
-			console.log("Error on remove coffee: ", error);
+			.select();
+		if (coffeeError) {
+			console.log("Delete error on coffee: ", coffeeError);
 		}
-		setCoffees((prevCoffees) =>
-			prevCoffees.filter((coffee) => coffee.id !== id)
-		);
-		console.log("Coffee removed ", data);
+		console.log("Coffee removed: ", coffeeData);
+		setCoffees((prev) => prev.filter((coffee) => coffee.id !== id));
 	};
-
-	if (isLoading) return <h1>Loading...</h1>;
-
 	return (
 		<div className="coffeelog">
 			<h1>Recent Logs</h1>
 			{coffees.map((coffee) => (
 				<CoffeeCard
 					coffeeInfo={coffee}
-					removeCoffee={removeCoffee}
-					removeRecipes={removeRecipes}
 					key={coffee.id}
+					onRemove={handleRemove}
 				/>
 			))}
 		</div>
