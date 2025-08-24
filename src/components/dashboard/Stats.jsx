@@ -4,7 +4,7 @@ import { supabase } from "../../../config/supaBaseClient";
 
 export const Stats = ({ coffees, recipes }) => {
 	return (
-		<div className="flex justify-center gap-10 mt-25">
+		<div className="flex justify-center items-center gap-5 mt-20 ">
 			<StatCard text="Coffes Logged" value={coffees.length} />
 			<StatCard text="Recipes Learned" value={recipes.length} />
 		</div>

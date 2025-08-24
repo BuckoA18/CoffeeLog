@@ -35,7 +35,7 @@ export const Main = () => {
 	}, []);
 
 	return (
-		<div className="flex flex-col gap-3 mx-auto max-w-6xl">
+		<div className="flex flex-col gap-5 mx-auto max-w-6xl p-2">
 			<Stats coffees={coffees} recipes={recipes} />
 			<Actions />
 			<CoffeeLog

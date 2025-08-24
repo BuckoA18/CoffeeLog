@@ -5,12 +5,12 @@ export const ActionCard = ({ text, link }) => {
 	const navigate = useNavigate();
 	return (
 		<div
-			className="flex justify-center items-center mt-10 w-full bg-white rounded-xl h-25 hover:cursor-pointer"
+			className="flex justify-center items-center  bg-white rounded-xl h-30 hover:cursor-pointer hover:h-35 transition-all"
 			onClick={() => {
 				navigate(link);
 			}}
 		>
-			<h1>{text}</h1>
+			<h1 className="text-xl font-bold">{text}</h1>
 		</div>
 	);
 };

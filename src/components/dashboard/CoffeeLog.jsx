@@ -29,16 +29,18 @@ export const CoffeeLog = ({ coffees, setCoffees, recipes }) => {
 		setCoffees((prev) => prev.filter((coffee) => coffee.id !== id));
 	};
 	return (
-		<div className="mt-10 p-8 w-full bg-white rounded-xl">
+		<div className=" p-8 w-full bg-white rounded-xl shadow-2xl">
 			<h1 className="text-2xl font-bold">Recent Logs:</h1>
 			<p className="mb-3">Your recently logged coffees</p>
-			{coffees.map((coffee) => (
-				<CoffeeCard
-					coffeeInfo={coffee}
-					key={coffee.id}
-					onRemove={handleRemove}
-				/>
-			))}
+			<div className="flex flex-col gap-3">
+				{coffees.map((coffee) => (
+					<CoffeeCard
+						coffeeInfo={coffee}
+						key={coffee.id}
+						onRemove={handleRemove}
+					/>
+				))}
+			</div>
 		</div>
 	);
 };

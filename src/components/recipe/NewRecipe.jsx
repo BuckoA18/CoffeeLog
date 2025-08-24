@@ -33,11 +33,17 @@ export const NewRecipe = () => {
 
 	return (
 		<form
+			className="flex flex-col mt-40 bg-white w-xl mx-auto shadow-2xl rounded-2xl p-10"
 			onSubmit={(e) => {
 				addRecipe(e);
 			}}
 		>
+			<label for="recipe_name" className="mb-1 text-lg">
+				Name
+			</label>
 			<input
+				className="border-1 border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:outline-none focus:border-orange-950
+				focus:ring-1 focus:ring-orange-950"
 				type="text"
 				name="recipe_name"
 				value={newRecipe.recipe_name}
@@ -45,8 +51,12 @@ export const NewRecipe = () => {
 					handleChange(e);
 				}}
 			/>
-
+			<label for="recipe_ratio" className="mt-5 mb-1 text-lg">
+				Ratio ( coffee : water )
+			</label>
 			<input
+				className="border-1 border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:outline-none focus:border-orange-950
+				focus:ring-1 focus:ring-orange-950"
 				type="text"
 				name="recipe_ratio"
 				value={newRecipe.recipe_ratio}
@@ -54,8 +64,12 @@ export const NewRecipe = () => {
 					handleChange(e);
 				}}
 			/>
-
+			<label for="recipe_time" className="mt-5 mb-1 text-lg">
+				Time
+			</label>
 			<input
+				className="border-1 border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:outline-none focus:border-orange-950
+				focus:ring-1 focus:ring-orange-950"
 				type="text"
 				name="recipe_time"
 				value={newRecipe.recipe_time}
@@ -63,8 +77,12 @@ export const NewRecipe = () => {
 					handleChange(e);
 				}}
 			/>
-
+			<label for="recipe_instructions" className="mt-5 mb-1 text-lg">
+				Instructions
+			</label>
 			<textarea
+				className="border-1 border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:outline-none focus:border-orange-950
+				focus:ring-1 focus:ring-orange-950"
 				name="recipe_instructions"
 				value={newRecipe.recipe_intructions}
 				onChange={(e) => {
@@ -72,7 +90,9 @@ export const NewRecipe = () => {
 				}}
 			/>
 
-			<button>Add newRecipe</button>
+			<button className="mt-5 text-lg bg-orange-900 text-white py-2 rounded-xl font-bold hover:py-2.5 transition-all hover:cursor-pointer">
+				Add newRecipe
+			</button>
 		</form>
 	);
 };
