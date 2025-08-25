@@ -38,7 +38,7 @@ export const NewRecipe = () => {
 				addRecipe(e);
 			}}
 		>
-			<label for="recipe_name" className="mb-1 text-lg">
+			<label htmlFor="recipe_name" className="mb-1 text-lg">
 				Name
 			</label>
 			<input
@@ -51,7 +51,7 @@ export const NewRecipe = () => {
 					handleChange(e);
 				}}
 			/>
-			<label for="recipe_ratio" className="mt-5 mb-1 text-lg">
+			<label htmlFor="recipe_ratio" className="mt-5 mb-1 text-lg">
 				Ratio ( coffee : water )
 			</label>
 			<input
@@ -64,7 +64,7 @@ export const NewRecipe = () => {
 					handleChange(e);
 				}}
 			/>
-			<label for="recipe_time" className="mt-5 mb-1 text-lg">
+			<label htmlFor="recipe_time" className="mt-5 mb-1 text-lg">
 				Time
 			</label>
 			<input
@@ -77,7 +77,7 @@ export const NewRecipe = () => {
 					handleChange(e);
 				}}
 			/>
-			<label for="recipe_instructions" className="mt-5 mb-1 text-lg">
+			<label htmlFor="recipe_instructions" className="mt-5 mb-1 text-lg">
 				Instructions
 			</label>
 			<textarea

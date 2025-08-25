@@ -11,11 +11,11 @@ export const RecipeCard = ({ recipeInfo }) => {
 	} = recipeInfo;
 
 	return (
-		<div>
-			{recipe_name} || {recipe_ratio} || {recipe_time} || {recipe_instructions}
-			<Link to={`${recipeId}/edit`}>
-				<button>edit</button>
-			</Link>
+		<div className="flex gap-10">
+			<h1>{recipe_name}</h1>
+			<p>{recipe_ratio}</p>
+			<p>{recipe_time}</p>
+			<p>{recipe_instructions}</p>
 		</div>
 	);
 };

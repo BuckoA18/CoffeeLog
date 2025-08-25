@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CoffeeCard } from "../coffee-log/CoffeeCard";
 import { supabase } from "../../../config/supaBaseClient";
 
-export const CoffeeLog = ({ coffees, setCoffees, recipes }) => {
-	if (!coffees) return <h1>Loading...</h1>;
-
+export const CoffeeLog = ({ coffees, setCoffees, setRecipes }) => {
 	const handleRemove = async (id) => {
 		const { data: reccipeData, error: recipeError } = await supabase
 			.from("recipes")
@@ -13,9 +11,9 @@ export const CoffeeLog = ({ coffees, setCoffees, recipes }) => {
 			.select();
 		if (recipeError) {
 			console.log("Delete error on recipe: ", error);
-			return;
 		}
 		console.log("Recipes removed: ", reccipeData);
+		setRecipes((prev) => prev.filter((recipe) => recipe.coffee_id !== id));
 
 		const { data: coffeeData, error: coffeeError } = await supabase
 			.from("coffees")

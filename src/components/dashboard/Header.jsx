@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Button } from "./Button";
 
 export const Header = () => {
 	return (
@@ -10,9 +11,7 @@ export const Header = () => {
 						CoffeeLogger
 					</h1>
 				</Link>
-				<button className="bg-orange-900 text-l p-3 rounded-4xl font-bold text-white hover:p-3.5 transition-all">
-					<Link to="newlog">+ New Log</Link>
-				</button>
+				<Button link="newlog" text="+ New Log" />
 			</div>
 		</header>
 	);

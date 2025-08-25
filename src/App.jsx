@@ -1,3 +1,9 @@
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+library.add(fas, far, fab);
+
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
@@ -18,11 +24,8 @@ const App = () => {
 				<Route path="/newlog" element={<NewLog />} />
 				<Route path="/:id/edit" element={<EditLog />} />
 				<Route path="coffee/:id/recipes" element={<Recipes />} />
-				<Route
-					path="coffee/:id/recipes/:recipeId/edit"
-					element={<EditRecipe />}
-				/>
-				<Route path="coffee/:id/recipes/newrecipe" element={<NewRecipe />} />
+				<Route path="/:id/:recipeId/edit" element={<EditRecipe />} />
+				<Route path="/:id/newrecipe" element={<NewRecipe />} />
 			</Routes>
 		</BrowserRouter>
 	);
