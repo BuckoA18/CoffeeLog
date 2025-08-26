@@ -19,11 +19,21 @@ export const Recipes = ({ coffeeId: id }) => {
 				console.log("Fetch error: ", error);
 			}
 			setRecipes(data);
-			console.log("Recipes: ", recipes);
+			console.log(`Recipes ${id}`, data);
 		};
 
 		fetchRecipes();
 	}, []);
+
+	if (!recipes.length > 0)
+		return (
+			<>
+				<h1>No Recipes Yet..</h1>
+				<div className="mx-auto">
+					<Button link={`/${id}/newrecipe`} icon="fa-plus" />
+				</div>
+			</>
+		);
 
 	return (
 		<>

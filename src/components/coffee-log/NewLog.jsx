@@ -1,27 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../../../config/supaBaseClient";
+import { Button } from "../dashboard/Button";
+import { useNavigate } from "react-router-dom";
+import { TextInput } from "../forms/TextInput";
+import { SelectInput } from "../forms/SelectInput";
+import { DateInput } from "../forms/DateInput";
+import { TextareaInput } from "../forms/TextareaInput";
 
 export const NewLog = () => {
+	const navigate = useNavigate();
 	const [newCofee, setNewCofee] = useState({
 		name: "",
 		roast_level: "medium",
 		roast_date: "",
 		notes: "",
 	});
-	const insertCoffees = async () => {
-		const { error, data } = await supabase
-			.from("coffees")
-			.insert(newCofee)
-			.select();
-		if (error) {
-			console.log("Error: ", error);
-			return;
-		}
-		console.log("Inserted: ", data);
-	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		const insertCoffees = async () => {
+			const { error, data } = await supabase
+				.from("coffees")
+				.insert(newCofee)
+				.select();
+			if (error) {
+				console.log("Error: ", error);
+				return;
+			}
+			console.log("Coffee inserted: ", data);
+			navigate("/");
+		};
 		insertCoffees();
 	};
 
@@ -32,71 +40,41 @@ export const NewLog = () => {
 
 	return (
 		<form
-			className="flex flex-col mt-40 bg-white w-xl mx-auto shadow-2xl rounded-2xl p-10"
+			className="flex flex-col gap-3 mt-40 bg-white w-xl mx-auto shadow-2xl rounded-2xl p-10"
 			onSubmit={(e) => {
 				handleSubmit(e);
 			}}
 		>
-			<label for="name" className="mb-1 text-lg">
-				Name
-			</label>
-			<input
-				className="border-1 border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:outline-none focus:border-orange-950
-				focus:ring-1 focus:ring-orange-950"
-				type="text"
+			<TextInput
 				name="name"
 				value={newCofee.name}
-				onChange={(e) => {
-					handleChange(e);
-				}}
-				required
+				labelName="Name"
+				onChange={handleChange}
 			/>
-			<label for="roast_level" className="mt-5 mb-1 text-lg">
-				Roast
-			</label>
-			<select
-				className="border-1 appearance-none border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:outline-none focus:border-orange-950
-				focus:ring-1 focus:ring-orange-950"
+
+			<SelectInput
+				labelName="Roast"
 				name="roast_level"
 				value={newCofee.roast_level}
-				onChange={(e) => {
-					handleChange(e);
-				}}
-			>
-				<option value="light">Light</option>
-				<option value="medium">Medium</option>
-				<option value="dark">Dark</option>
-			</select>
-			<label for="roast_date" className="mt-5 mb-1 text-lg">
-				Date of
-			</label>
-			<input
-				className="border-1 border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:outline-none focus:border-orange-950
-				focus:ring-1 focus:ring-orange-950"
-				type="date"
+				onChange={handleChange}
+				options={["Light", "Medium", "Dark"]}
+			/>
+
+			<DateInput
+				labelName="Roasted"
 				name="roast_date"
 				value={newCofee.roast_date}
-				onChange={(e) => {
-					handleChange(e);
-				}}
-				required
+				onChange={handleChange}
 			/>
-			<label for="notes" className="mt-5 mb-1 text-lg">
-				Your notes
-			</label>
-			<textarea
-				className="border-1 border-gray-300 rounded-lg shadow-sm px-3 py-2 focus:outline-none focus:border-orange-950
-				focus:ring-1 focus:ring-orange-950"
+
+			<TextareaInput
+				labelName="Notes"
 				name="notes"
 				value={newCofee.notes}
-				onChange={(e) => {
-					handleChange(e);
-				}}
-			></textarea>
+				onChange={handleChange}
+			/>
 
-			<button className="mt-5 text-lg bg-orange-900 text-white py-2 rounded-xl font-bold hover:py-2.5 transition-all hover:cursor-pointer">
-				Add
-			</button>
+			<Button text="Add" type="sumbit" />
 		</form>
 	);
 };

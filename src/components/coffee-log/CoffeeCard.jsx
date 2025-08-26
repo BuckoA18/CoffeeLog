@@ -24,7 +24,7 @@ export const CoffeeCard = ({ coffeeInfo, onRemove }) => {
 				onClick={handleClick}
 				className="flex flex-col bg-neutral-50 rounded-xl p-5 shadow hover:p-10 hover:cursor-pointer transition-all "
 			>
-				<div className="flex justify-between p-2">
+				<div className="flex justify-between items-center p-2">
 					<div className={`w-5 h-5 rounded-full ${roastColor}`}></div>
 					<h1 className="text-xl font-medium">{name}</h1>
 					<p>Roasted {roast_date}</p>
@@ -35,7 +35,15 @@ export const CoffeeCard = ({ coffeeInfo, onRemove }) => {
 						<Button icon="fa-xmark" func={onRemove} id={id} />
 					</div>
 				</div>
-				{isCardOpen && <Recipes coffeeId={id} />}
+				<div
+					className={`transition-all duration-500  ${
+						isCardOpen
+							? "max-h-[500px] opacity-100 block"
+							: "max-h-0 opacity-0 none"
+					}`}
+				>
+					{isCardOpen && <Recipes coffeeId={id} />}
+				</div>
 			</div>
 		</>
 	);
