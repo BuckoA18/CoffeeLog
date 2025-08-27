@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "../../../config/supaBaseClient";
 import { TextInput } from "../forms/TextInput";
 import { Button } from "../dashboard/Button";
-import { Steps } from "../forms/Steps";
+import { StepsInput } from "../forms/StepsInput";
 
 export const NewRecipe = () => {
 	const navigate = useNavigate();
@@ -12,21 +12,26 @@ export const NewRecipe = () => {
 		coffee_id: id,
 		recipe_method: "",
 		recipe_ratio: "",
-		steps: {},
+		recipe_steps: [],
 	});
 
-	const handleChange = (e) => {
+	const handleChange = (e, index) => {
 		const { name, value } = e.target;
 		if (name.startsWith("step_")) {
-			// Update a step in steps object
-			setNewRecipe((prev) => ({
-				...prev,
-				steps: { ...prev.steps, [name]: value },
-			}));
-		} else {
-			// Update other recipe fields
-			setNewRecipe((prev) => ({ ...prev, [name]: value }));
+			setNewRecipe((prev) => {
+				const updatedSteps = [...prev.recipe_steps];
+				updatedSteps[index] = {
+					...updatedSteps[index],
+					step: index + 1,
+					instruction: value,
+				};
+				console.log(updatedSteps);
+				return { ...prev, recipe_steps: updatedSteps };
+			});
+
+			return;
 		}
+		setNewRecipe((prev) => ({ ...prev, [name]: value }));
 	};
 
 	const handleSubmit = async (e) => {
@@ -35,7 +40,7 @@ export const NewRecipe = () => {
 		const { error, data } = await supabase
 			.from("recipes")
 			.insert(newRecipe)
-			.select("*");
+			.select();
 		if (error) {
 			console.log("Insert error: ", error);
 		}
@@ -63,7 +68,10 @@ export const NewRecipe = () => {
 				onChange={handleChange}
 			/>
 
-			<Steps recipeSteps={newRecipe.steps} handleChange={handleChange} />
+			<StepsInput
+				recipe_steps={newRecipe.recipe_steps}
+				onChange={handleChange}
+			/>
 
 			<Button text="Add" type="sumbit" />
 		</form>

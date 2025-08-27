@@ -1,43 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "../../../config/supaBaseClient";
-
+import { TextInput } from "../forms/TextInput";
+import { StepsInput } from "../forms/StepsInput";
+import { Button } from "../dashboard/Button";
 export const EditRecipe = () => {
+	const navigate = useNavigate();
 	const { recipeId } = useParams();
 
-	const [editedRecipe, setEditedRecipe] = useState({
-		recipe_name: "",
+	const [recipe, setRecipe] = useState({
+		recipe_method: "",
 		recipe_ratio: "",
-		recipe_time: "",
-		recipe_instructions: "",
+		recipe_steps: [],
 	});
 
 	useEffect(() => {
 		const fetchRecipe = async () => {
 			const { error, data } = await supabase
 				.from("recipes")
-				.select("*")
+				.select()
 				.eq("id", recipeId)
 				.single();
 			if (error) {
 				console.log("Fetch error: ", error);
 			}
-			setEditedRecipe(data);
+			setRecipe(data);
 			console.log("Recipe fetched: ", data);
 		};
 		fetchRecipe();
 	}, []);
 
-	const handleChange = (e) => {
+	const handleChange = (e, index) => {
 		const { name, value } = e.target;
-		setEditedRecipe((prev) => ({ ...prev, [name]: value }));
+		if (name.startsWith("step_")) {
+			setRecipe((prev) => {
+				const updatedSteps = [...prev.recipe_steps];
+				updatedSteps[index] = {
+					...updatedSteps[index],
+					step: index + 1,
+					instruction: value,
+				};
+				console.log(updatedSteps);
+				return { ...prev, recipe_steps: updatedSteps };
+			});
+
+			return;
+		}
+		setRecipe((prev) => ({ ...prev, [name]: value }));
 	};
 
-	const editRecipe = async (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const { error, data } = await supabase
 			.from("recipes")
-			.update(editedRecipe)
+			.update(recipe)
 			.eq("id", recipeId)
 			.select()
 			.single();
@@ -45,52 +61,35 @@ export const EditRecipe = () => {
 		if (error) {
 			console.log("Insert error: ", error);
 		}
-		setEditedRecipe(data);
+		setRecipe(data);
 		console.log("Data saved: ", data);
 	};
 
 	return (
 		<form
+			className="flex flex-col gap-3 mt-40 bg-white w-xl mx-auto shadow-2xl rounded-2xl p-10"
 			onSubmit={(e) => {
-				editRecipe(e);
+				handleSubmit(e);
+				navigate("/");
 			}}
 		>
-			<input
-				type="text"
-				name="recipe_name"
-				value={editedRecipe.recipe_name}
-				onChange={(e) => {
-					handleChange(e);
-				}}
+			<TextInput
+				name="recipe_method"
+				value={recipe.recipe_method}
+				labelName="Method"
+				onChange={handleChange}
 			/>
 
-			<input
-				type="text"
+			<TextInput
 				name="recipe_ratio"
-				value={editedRecipe.recipe_ratio}
-				onChange={(e) => {
-					handleChange(e);
-				}}
+				value={recipe.recipe_ratio}
+				labelName="Ratio (coffee:water)"
+				onChange={handleChange}
 			/>
 
-			<input
-				type="number"
-				name="recipe_time"
-				value={editedRecipe.recipe_time}
-				onChange={(e) => {
-					handleChange(e);
-				}}
-			/>
+			<StepsInput recipe_steps={recipe.recipe_steps} onChange={handleChange} />
 
-			<textarea
-				name="recipe_instructions"
-				value={editedRecipe.recipe_instructions}
-				onChange={(e) => {
-					handleChange(e);
-				}}
-			/>
-
-			<button>Save</button>
+			<Button text="Add" type="sumbit" />
 		</form>
 	);
 };

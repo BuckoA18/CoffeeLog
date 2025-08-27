@@ -19,7 +19,7 @@ export const Button = ({ link, text, icon, func, id, type }) => {
 		return (
 			<Link to={link}>
 				<div
-					className="flex justify-center items-center rounded-full w-10 h-10 hover:bg-neutral-300 transition-all"
+					className="flex justify-center items-center rounded-full w-10 h-10 hover:bg-neutral-300 transition-all "
 					onClick={() => {
 						if (!func) return;
 						func();
@@ -36,7 +36,7 @@ export const Button = ({ link, text, icon, func, id, type }) => {
 				className="bg-orange-900 text-white text-xl font-normal px-3 py-2 rounded-xl hover:scale-105 transition-all shadow-2xl "
 				onClick={() => {
 					if (!func) return;
-					func(id);
+					func();
 				}}
 			>
 				{text}

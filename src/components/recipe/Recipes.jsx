@@ -1,50 +1,44 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../../../config/supaBaseClient";
-import { useParams, Link } from "react-router-dom";
+
 import { RecipeCard } from "./RecipeCard";
 import { Button } from "../dashboard/Button";
-import { icon } from "@fortawesome/fontawesome-svg-core";
 
-export const Recipes = ({ coffeeId: id }) => {
-	const [recipes, setRecipes] = useState([]);
+export const Recipes = ({ coffeeId, recipes, setRecipes }) => {
+	const handleRemove = async (recipeId) => {
+		const { error, data } = await supabase
+			.from("recipes")
+			.delete()
+			.eq("id", recipeId)
+			.select();
+		if (error) {
+			console.log("Recepe delete error: ", error);
+		}
+		console.log("Recepe deleted: ", data);
+		setRecipes((prev) => prev.filter((recipe) => recipe.id !== recipeId));
+	};
 
-	useEffect(() => {
-		const fetchRecipes = async () => {
-			const { error, data } = await supabase
-				.from("recipes")
-				.select()
-				.eq("coffee_id", id)
-				.order("id", { ascending: false });
-			if (error) {
-				console.log("Fetch error: ", error);
-			}
-			setRecipes(data);
-			console.log(`Recipes ${id}`, data);
-		};
-
-		fetchRecipes();
-	}, []);
-
-	if (!recipes.length > 0)
+	if (recipes.length < 1)
 		return (
 			<>
 				<h1>No Recipes Yet..</h1>
 				<div className="mx-auto">
-					<Button link={`/${id}/newrecipe`} icon="fa-plus" />
+					<Button link={`/${coffeeId}/newrecipe`} icon="fa-plus" />
 				</div>
 			</>
 		);
 
 	return (
-		<>
-			<div>
-				{recipes.map((recipe) => (
-					<RecipeCard key={recipe.id} recipeInfo={recipe} />
-				))}
-			</div>
-			<div className="mx-auto">
-				<Button link={`/${id}/newrecipe`} icon="fa-plus" />
-			</div>
-		</>
+		<div className="shadow rounded-xl py-5">
+			{recipes.map((recipe) => (
+				<RecipeCard
+					key={recipe.id}
+					recipeInfo={recipe}
+					handleRemove={handleRemove}
+				/>
+			))}
+
+			<Button link={`/${coffeeId}/newrecipe`} icon="fa-plus" />
+		</div>
 	);
 };
