@@ -4,7 +4,15 @@ import { supabase } from "../../../config/supaBaseClient";
 import { RecipeCard } from "./RecipeCard";
 import { Button } from "../dashboard/Button";
 
-export const Recipes = ({ coffeeId: id, recipes, setRecipes }) => {
+export const Recipes = ({
+	coffeeId: id,
+	recipes,
+	setRecipes,
+	refetchRecipes,
+}) => {
+	useEffect(() => {
+		refetchRecipes();
+	}, []);
 	const handleDelete = async (recipeId) => {
 		const { error, data } = await supabase
 			.from("recipes")

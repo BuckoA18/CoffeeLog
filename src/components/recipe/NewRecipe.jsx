@@ -39,7 +39,7 @@ export const NewRecipe = () => {
 		console.log("coffee id: ", id);
 		const { error, data } = await supabase
 			.from("recipes")
-			.insert([newRecipe])
+			.insert(newRecipe)
 			.select();
 		if (error) {
 			console.log("Insert error: ", error);

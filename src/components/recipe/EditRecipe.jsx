@@ -87,7 +87,11 @@ export const EditRecipe = () => {
 				onChange={handleChange}
 			/>
 
-			<StepsInput recipe_steps={recipe.recipe_steps} onChange={handleChange} />
+			<StepsInput
+				recipe_steps={recipe.recipe_steps}
+				onChange={handleChange}
+				setRecipe={setRecipe}
+			/>
 
 			<Button text="Add" type="sumbit" />
 		</form>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { TextInput } from "./TextInput";
 import { Button } from "../dashboard/Button";
 
-export const StepsInput = ({ recipe_steps, onChange }) => {
+export const StepsInput = ({ recipe_steps, onChange, setNewRecipe }) => {
 	const [stepCounter, setStepCounter] = useState([0]);
 	const [isStepsOpen, setIsStepsOpen] = useState(false);
 

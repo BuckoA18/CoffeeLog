@@ -9,6 +9,15 @@ export const Main = () => {
 	const [coffees, setCoffees] = useState([]);
 	const [recipes, setRecipes] = useState([]);
 
+	const fetchRecipes = async () => {
+		const { error, data } = await supabase.from("recipes").select();
+		if (error) {
+			console.log("Fetch error: ", err);
+		}
+		setRecipes(data);
+		console.log("Recipes:  ", data);
+	};
+
 	useEffect(() => {
 		const fetchCoffees = async () => {
 			const { error, data } = await supabase
@@ -23,14 +32,6 @@ export const Main = () => {
 		};
 		fetchCoffees();
 
-		const fetchRecipes = async () => {
-			const { error, data } = await supabase.from("recipes").select();
-			if (error) {
-				console.log("Fetch error: ", err);
-			}
-			setRecipes(data);
-			console.log("Recipes:  ", data);
-		};
 		fetchRecipes();
 	}, []);
 
@@ -43,6 +44,7 @@ export const Main = () => {
 				recipes={recipes}
 				setCoffees={setCoffees}
 				setRecipes={setRecipes}
+				refetchRecipes={fetchRecipes}
 			/>
 		</div>
 	);

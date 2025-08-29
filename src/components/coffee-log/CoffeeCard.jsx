@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import { Button } from "../dashboard/Button";
 import { Recipes } from "../recipe/Recipes";
 
-export const CoffeeCard = ({ coffeeInfo, onRemove, recipes, setRecipes }) => {
+export const CoffeeCard = ({
+	coffeeInfo,
+	onRemove,
+	recipes,
+	setRecipes,
+	refetchRecipes,
+}) => {
 	const [isCardOpen, setIsCardOpen] = useState(false);
 	const { name, roast_level, roast_date, notes, id } = coffeeInfo;
 	const roastColors = {
@@ -46,7 +52,12 @@ export const CoffeeCard = ({ coffeeInfo, onRemove, recipes, setRecipes }) => {
 					}`}
 				>
 					{isCardOpen && (
-						<Recipes coffeeId={id} recipes={recipes} setRecipes={setRecipes} />
+						<Recipes
+							coffeeId={id}
+							recipes={recipes}
+							setRecipes={setRecipes}
+							refetchRecipes={refetchRecipes}
+						/>
 					)}
 				</div>
 			</div>
