@@ -4,41 +4,46 @@ import { supabase } from "../../../config/supaBaseClient";
 import { RecipeCard } from "./RecipeCard";
 import { Button } from "../dashboard/Button";
 
-export const Recipes = ({ coffeeId, recipes, setRecipes }) => {
-	const handleRemove = async (recipeId) => {
+export const Recipes = ({ coffeeId: id, recipes, setRecipes }) => {
+	const handleDelete = async (recipeId) => {
 		const { error, data } = await supabase
 			.from("recipes")
 			.delete()
 			.eq("id", recipeId)
 			.select();
 		if (error) {
-			console.log("Recepe delete error: ", error);
+			console.log("Error on Delete");
 		}
-		console.log("Recepe deleted: ", data);
+		console.log("Deleted: ", data);
 		setRecipes((prev) => prev.filter((recipe) => recipe.id !== recipeId));
 	};
 
-	if (recipes.length < 1)
+	const coffeeRecipes = recipes?.filter((recipe) => recipe.coffee_id === id);
+
+	if (coffeeRecipes.length < 1)
 		return (
 			<>
 				<h1>No Recipes Yet..</h1>
 				<div className="mx-auto">
-					<Button link={`/${coffeeId}/newrecipe`} icon="fa-plus" />
+					<Button link={`/${id}/newrecipe`} icon="fa-plus" />
 				</div>
 			</>
 		);
 
 	return (
-		<div className="shadow rounded-xl py-5">
-			{recipes.map((recipe) => (
-				<RecipeCard
-					key={recipe.id}
-					recipeInfo={recipe}
-					handleRemove={handleRemove}
-				/>
-			))}
-
-			<Button link={`/${coffeeId}/newrecipe`} icon="fa-plus" />
-		</div>
+		<>
+			<div>
+				{coffeeRecipes.map((recipe) => (
+					<RecipeCard
+						key={recipe.id}
+						recipeInfo={recipe}
+						handleDelete={handleDelete}
+					/>
+				))}
+			</div>
+			<div className="mx-auto">
+				<Button link={`/${id}/newrecipe`} icon="fa-plus" />
+			</div>
+		</>
 	);
 };

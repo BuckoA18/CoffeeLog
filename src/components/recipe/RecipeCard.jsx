@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../dashboard/Button";
 
-export const RecipeCard = ({ recipeInfo, handleRemove }) => {
+export const RecipeCard = ({ recipeInfo, handleDelete }) => {
 	const {
 		recipe_method,
 		recipe_ratio,
@@ -15,7 +15,7 @@ export const RecipeCard = ({ recipeInfo, handleRemove }) => {
 		setIsOpen((prev) => !prev);
 	};
 	return (
-		<>
+		<div className="shadow rounded-xl py-5">
 			<div className="flex justify-between px-10 ">
 				<div className="flex gap-5 items-center">
 					<h1>Method: {recipe_method}</h1>
@@ -28,18 +28,18 @@ export const RecipeCard = ({ recipeInfo, handleRemove }) => {
 					<Button
 						icon="fa-xmark"
 						func={() => {
-							handleRemove(recipeId);
+							handleDelete(recipeId);
 						}}
 					/>
 				</div>
 			</div>
-			<ul className={`${isOpen ? "block" : "hidden"} px-20`}>
+			<ul className={`${isOpen ? "flex" : "hidden"}  flex-col px-20`}>
 				{recipe_steps.map((step) => (
 					<li key={step.step} className="list-decimal">
 						{step.instruction}
 					</li>
 				))}
 			</ul>
-		</>
+		</div>
 	);
 };
