@@ -4,6 +4,7 @@ import { Button } from "../dashboard/Button";
 
 export const StepsInput = ({ recipe_steps, onChange }) => {
 	const [stepCounter, setStepCounter] = useState([0]);
+	const [isStepsOpen, setIsStepsOpen] = useState(false);
 
 	useEffect(() => {
 		if (recipe_steps?.length) {
@@ -12,19 +13,26 @@ export const StepsInput = ({ recipe_steps, onChange }) => {
 
 		console.log("mounted");
 	}, [recipe_steps]);
-	console.log("stepCounter", stepCounter);
 
 	const handleClick = () => {
 		setStepCounter((prev) => [...prev, prev.at(-1) + 1]);
 	};
+
+	const handleToggle = () => {
+		setIsStepsOpen((prev) => !prev);
+	};
 	return (
 		<div>
-			<Button icon="fa-plus" func={handleClick} />
-			<div>
+			<h1>Instructions</h1>
+			<Button
+				icon={`fa-toggle-${isStepsOpen ? "on" : "off"}`}
+				func={handleToggle}
+			/>
+			<div className={`${isStepsOpen ? "flex" : "hidden"} flex-col`}>
 				{stepCounter.map((step, index) => (
 					<TextInput
 						key={step}
-						labelName={step}
+						labelName={`${step + 1}.`}
 						name={`step_${step}`}
 						onChange={(e) => {
 							onChange(e, index);
@@ -32,6 +40,7 @@ export const StepsInput = ({ recipe_steps, onChange }) => {
 						value={recipe_steps[index]?.instruction || ""}
 					/>
 				))}
+				<Button icon="fa-plus" func={handleClick} />
 			</div>
 		</div>
 	);
