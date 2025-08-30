@@ -11,14 +11,11 @@ You can log coffees with details like name, roast date, tasting notes, and roast
 
 🔄 Organized & Connected – Recipes are tied to their coffees for easy management.
 
-🎨 Modern UI – Clean and responsive design optimized for desktop and mobile.
-
 🛠️ Tech Stack
 
 Frontend: React + Tailwind CSS
 
 Data: Supabase 
-
 
 
 ⚠️ Current Limitations
