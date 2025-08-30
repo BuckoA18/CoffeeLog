@@ -31,6 +31,7 @@ export const StepsInput = ({ recipe_steps, onChange, setNewRecipe }) => {
 			<div className={`${isStepsOpen ? "flex" : "hidden"} flex-col`}>
 				{stepCounter.map((step, index) => (
 					<TextInput
+						isRequired={isStepsOpen ? true : false}
 						key={step}
 						labelName={`${step + 1}.`}
 						name={`step_${step}`}
@@ -40,7 +41,9 @@ export const StepsInput = ({ recipe_steps, onChange, setNewRecipe }) => {
 						value={recipe_steps[index]?.instruction || ""}
 					/>
 				))}
-				<Button icon="fa-plus" func={handleClick} />
+				<div className="flex justify-center mt-3">
+					<Button icon="fa-plus" func={handleClick} />
+				</div>
 			</div>
 		</div>
 	);

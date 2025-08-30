@@ -15,7 +15,7 @@ export const RecipeCard = ({ recipeInfo, handleDelete }) => {
 		setIsOpen((prev) => !prev);
 	};
 	return (
-		<div className="shadow rounded-xl py-5">
+		<div className="shadow rounded-xl p-5 hover:bg-neutral-100">
 			<div className="flex justify-between px-10 ">
 				<div className="flex gap-5 items-center">
 					<h1>Method: {recipe_method}</h1>
@@ -33,7 +33,7 @@ export const RecipeCard = ({ recipeInfo, handleDelete }) => {
 					/>
 				</div>
 			</div>
-			<ul className={`${isOpen ? "flex" : "hidden"}  flex-col px-20`}>
+			<ul className={`${isOpen ? "flex" : "hidden"}  flex-col px-25`}>
 				{recipe_steps.map((step) => (
 					<li key={step.step} className="list-decimal">
 						{step.instruction}

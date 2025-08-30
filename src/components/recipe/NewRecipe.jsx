@@ -59,6 +59,7 @@ export const NewRecipe = () => {
 				value={newRecipe.recipe_method}
 				labelName="Method"
 				onChange={handleChange}
+				required
 			/>
 
 			<TextInput
@@ -66,6 +67,7 @@ export const NewRecipe = () => {
 				value={newRecipe.recipe_ratio}
 				labelName="Ratio (coffee:water)"
 				onChange={handleChange}
+				required
 			/>
 
 			<StepsInput

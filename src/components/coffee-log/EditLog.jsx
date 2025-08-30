@@ -52,16 +52,21 @@ export const EditLog = () => {
 
 	return (
 		<form
-			className="flex flex-col gap-3 mt-40 bg-white w-xl mx-auto shadow-2xl rounded-2xl p-10"
+			className="flex flex-col gap-5 mt-40 bg-white w-xl mx-auto shadow-2xl rounded-2xl p-10"
 			onSubmit={(e) => {
 				handleSubmit(e);
 			}}
 		>
+			<div className="mb-5">
+				<h1 className="text-3xl font-bold">Edit Log</h1>
+				<p></p>
+			</div>
 			<TextInput
 				name="name"
 				value={coffee.name}
 				labelName="Name"
 				onChange={handleChange}
+				isRequired={true}
 			/>
 
 			<SelectInput
@@ -79,14 +84,14 @@ export const EditLog = () => {
 				onChange={handleChange}
 			/>
 
-			<TextareaInput
-				labelName="Notes"
+			<TextInput
 				name="notes"
 				value={coffee.notes}
+				labelName="Notes"
 				onChange={handleChange}
 			/>
 
-			<Button text="Add" type="sumbit" />
+			<Button text="Save" type="sumbit" />
 		</form>
 	);
 };

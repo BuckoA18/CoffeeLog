@@ -40,16 +40,21 @@ export const NewLog = () => {
 
 	return (
 		<form
-			className="flex flex-col gap-3 mt-40 bg-white w-xl mx-auto shadow-2xl rounded-2xl p-10"
+			className="flex flex-col gap-5 mt-40 bg-white w-xl mx-auto shadow-2xl rounded-2xl p-10"
 			onSubmit={(e) => {
 				handleSubmit(e);
 			}}
 		>
+			<div className="mb-5">
+				<h1 className="text-3xl font-bold">New Log</h1>
+				<p>Information about your new coffee</p>
+			</div>
 			<TextInput
 				name="name"
 				value={newCofee.name}
 				labelName="Name"
 				onChange={handleChange}
+				isRequired={true}
 			/>
 
 			<SelectInput
@@ -67,10 +72,10 @@ export const NewLog = () => {
 				onChange={handleChange}
 			/>
 
-			<TextareaInput
-				labelName="Notes"
+			<TextInput
 				name="notes"
 				value={newCofee.notes}
+				labelName="Notes"
 				onChange={handleChange}
 			/>
 

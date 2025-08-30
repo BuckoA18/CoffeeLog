@@ -78,6 +78,7 @@ export const EditRecipe = () => {
 				value={recipe.recipe_method}
 				labelName="Method"
 				onChange={handleChange}
+				isRequired={true}
 			/>
 
 			<TextInput
@@ -85,13 +86,10 @@ export const EditRecipe = () => {
 				value={recipe.recipe_ratio}
 				labelName="Ratio (coffee:water)"
 				onChange={handleChange}
+				isRequired={true}
 			/>
 
-			<StepsInput
-				recipe_steps={recipe.recipe_steps}
-				onChange={handleChange}
-				setRecipe={setRecipe}
-			/>
+			<StepsInput recipe_steps={recipe.recipe_steps} onChange={handleChange} />
 
 			<Button text="Add" type="sumbit" />
 		</form>

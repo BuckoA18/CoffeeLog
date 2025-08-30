@@ -12,8 +12,8 @@ export const CoffeeCard = ({
 	const [isCardOpen, setIsCardOpen] = useState(false);
 	const { name, roast_level, roast_date, notes, id } = coffeeInfo;
 	const roastColors = {
-		light: "bg-orange-300",
-		medium: "bg-orange-700",
+		light: "bg-yellow-600",
+		medium: "bg-amber-800",
 		dark: "bg-orange-950",
 	};
 	const roastColor = roastColors[roast_level];
@@ -26,7 +26,7 @@ export const CoffeeCard = ({
 
 	return (
 		<>
-			<div className="flex flex-col bg-neutral-50 rounded-xl p-5 shadow hover:p-10 transition-all ">
+			<div className="flex flex-col bg-neutral-50 rounded-xl p-5 shadow hover:py-10 transition-all ">
 				<div className="flex justify-between items-center p-2">
 					<div className={`w-5 h-5 rounded-full ${roastColor}`}></div>
 					<h1 className="text-xl font-medium">{name}</h1>

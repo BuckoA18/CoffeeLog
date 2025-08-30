@@ -40,7 +40,7 @@ export const Recipes = ({
 
 	return (
 		<>
-			<div>
+			<div className="flex flex-col gap-3 my-3 px-5">
 				{coffeeRecipes.map((recipe) => (
 					<RecipeCard
 						key={recipe.id}
