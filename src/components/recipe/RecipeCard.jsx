@@ -15,31 +15,45 @@ export const RecipeCard = ({ recipeInfo, handleDelete }) => {
 		setIsOpen((prev) => !prev);
 	};
 	return (
-		<div className="shadow rounded-xl p-5 hover:bg-neutral-100">
-			<div className="flex justify-between px-10 ">
-				<div className="flex gap-5 items-center">
+		<div className="shadow rounded-xl py-5 hover:bg-neutral-100">
+			<div className="flex flex-col px-10 sm:flex-row sm:justify-between ">
+				<div className="flex flex-col items-center sm:flex-row sm:gap-10 ">
 					<h1>Method: {recipe_method}</h1>
 					<span>Ratio: {recipe_ratio}</span>
 					<p>Instructions</p>
 					<Button icon="fa-bars-staggered" func={handleOpen} />
 				</div>
-				<div className="flex">
-					<Button icon="fa-pen" link={`recipe/${recipeId}/edit`} />
-					<Button
-						icon="fa-xmark"
-						func={() => {
-							handleDelete(recipeId);
-						}}
-					/>
+				<div className="flex flex-col items-center sm:flex-row">
+					<ul
+						className={`${isOpen ? "flex" : "hidden"} flex-col px-20 sm:hidden`}
+					>
+						{recipe_steps.map((step) => (
+							<li key={step.step} className="list-decimal">
+								{step.instruction}
+							</li>
+						))}
+					</ul>
+
+					<div className="flex">
+						<Button icon="fa-pen" link={`recipe/${recipeId}/edit`} />
+						<Button
+							icon="fa-xmark"
+							func={() => {
+								handleDelete(recipeId);
+							}}
+						/>
+					</div>
 				</div>
 			</div>
-			<ul className={`${isOpen ? "flex" : "hidden"}  flex-col px-25`}>
-				{recipe_steps.map((step) => (
-					<li key={step.step} className="list-decimal">
-						{step.instruction}
-					</li>
-				))}
-			</ul>
+			<div className="hidden sm:block">
+				<ul className={`${isOpen ? "flex" : "hidden"}  flex-col px-20`}>
+					{recipe_steps.map((step) => (
+						<li key={step.step} className="list-decimal">
+							{step.instruction}
+						</li>
+					))}
+				</ul>
+			</div>
 		</div>
 	);
 };

@@ -40,7 +40,7 @@ export const NewLog = () => {
 
 	return (
 		<form
-			className="flex flex-col gap-5 mt-40 bg-white w-xl mx-auto shadow-2xl rounded-2xl p-10"
+			className="flex flex-col gap-5  bg-white shadow-2xl mt-20 p-5 mx-auto w-sm rounded-2xl sm:mt-40 sm:w-xl sm:p-10"
 			onSubmit={(e) => {
 				handleSubmit(e);
 			}}

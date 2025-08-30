@@ -26,8 +26,8 @@ export const CoffeeCard = ({
 
 	return (
 		<>
-			<div className="flex flex-col bg-neutral-50 rounded-xl p-5 shadow hover:py-10 transition-all ">
-				<div className="flex justify-between items-center p-2">
+			<div className="flex flex-col bg-neutral-50 rounded-xl p-5 shadow hover:py-10 transition-all">
+				<div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-between sm:p-2">
 					<div className={`w-5 h-5 rounded-full ${roastColor}`}></div>
 					<h1 className="text-xl font-medium">{name}</h1>
 					<p>Roasted {roast_date}</p>
